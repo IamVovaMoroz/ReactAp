@@ -1,6 +1,7 @@
 import React from "react";
 import TodoList from "./TodoList/TodoList";
 import initialTodos from "./TodoList/todos";
+import "./App.css"; 
 
 class App extends React.Component {
   state = {
@@ -21,6 +22,18 @@ class App extends React.Component {
     // Деструктуризация в TodoList todos={this.state.todos} =>  <TodoList todos={todos}/>
     const { todos } = this.state;
 
+//     // 1 вариант через фильтр
+// // записали в переменную отфильтрованный массив todos, сколько есть todo.completed. Пришёл этот элемент
+//     const completedTodos = todos.filter(todo => todo.completed)
+//     // Вывели длину массива полученного в результате
+//     console.log(completedTodos.length)
+
+// 2 вариант через reduce
+// todo.completed  есди нашли, то добавили его в аккумулятор, если не нашли то ничегоне меняем acc прежний. на каждой итерации что то должны вернуть. Если false тоже что то записать
+const totalTodoCount = todos.length
+
+const completedTodosCount = todos.reduce((total, todo) => todo.completed ? total + 1 : total, 0)
+console.log(completedTodosCount)
     return (
       <div
         style={{
@@ -32,6 +45,14 @@ class App extends React.Component {
           color: "#010101",
         }}
       >
+
+<div>
+  {/* Общее количество это длина массива todos */}
+<p className="totalTodoCount">Количество ToDo общее: {totalTodoCount} </p>
+  <p className="completedTodosCount"> Количество ToDo выполненных: {completedTodosCount} </p>
+  
+  </div>
+
         {/* ondDeleteTodo={this.deleteTodo} записали в переменную ссылку на этот метод */}
         <TodoList todos={todos} onDeleteTodo={this.deleteTodo} />
       </div>
