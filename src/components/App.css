@@ -1,3 +1,6 @@
 .totalTodoCount, .completedTodosCount {
-    display: block;
+    display: inline-block;
+    margin-left: 100px;
+    text-decoration: underline;
+    text-decoration-color: #f44336;
   }

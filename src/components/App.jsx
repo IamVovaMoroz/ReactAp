@@ -51,10 +51,12 @@ console.log(completedTodosCount)
 <p className="totalTodoCount">Количество ToDo общее: {totalTodoCount} </p>
   <p className="completedTodosCount"> Количество ToDo выполненных: {completedTodosCount} </p>
   
-  </div>
+  
 
         {/* ondDeleteTodo={this.deleteTodo} записали в переменную ссылку на этот метод */}
         <TodoList todos={todos} onDeleteTodo={this.deleteTodo} />
+      </div>
+
       </div>
     );
   }
