@@ -1,0 +1,17 @@
+[
+    {
+      "id": "id-1",
+      "text": "Выучить основы React",
+      "completed": false
+    },
+    {
+      "id": "id-2",
+      "text": "Разобраться c React Ruoter",
+      "completed": false
+    },
+    {
+      "id": "id-3",
+      "text": "Пережить c Redux",
+      "completed": false
+    }
+  ]
