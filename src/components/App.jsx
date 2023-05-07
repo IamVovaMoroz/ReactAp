@@ -2,14 +2,14 @@ import React from "react";
 import TodoList from "./TodoList/TodoList";
 import initialTodos from "./TodoList/todos";
 import "./App.css"; 
+import Form from "./Form";
 
 class App extends React.Component {
   state = {
     todos: initialTodos,
     // Добавляем для инпута
     inputValue: "",
-     name: "",
-     tag:"",
+    
   };
 
 // Пишем метод, который будет определять состояние input
@@ -31,6 +31,16 @@ handleInputChange = event =>{
   this.setState({inputValue: event.currentTarget.value})
 }
 
+// При отправке submit 
+
+formSubmitHandler = data =>{
+  console.log(data)
+
+  // this.setState({inputValue: event.currentTarget.value})
+}
+
+
+
 // handleNameChange = event =>{
 //    this.setState({name: event.currentTarget.value})
 // }
@@ -45,17 +55,13 @@ handleInputChange = event =>{
 //   this.setState({[event.currentTarget.name] : event.currentTarget.value})
 // }
 
-handleChange = event =>{ 
-  const {name, value} = event.currentTarget;
-  // event.currentTarget.name значение атрибута name и его значение
-  this.setState({[name] : value})
-}
-
 
 
 
 
   render() {
+
+
     // Деструктуризация в TodoList todos={this.state.todos} =>  <TodoList todos={todos}/>
     const { todos } = this.state;
 
@@ -85,6 +91,7 @@ console.log(completedTodosCount)
 
 <div>
   {/* Общее количество это длина массива todos */}
+  
 <p className="totalTodoCount">Количество ToDo общее: {totalTodoCount} </p>
   <p className="completedTodosCount"> Количество ToDo выполненных: {completedTodosCount} </p>
   
@@ -95,20 +102,16 @@ console.log(completedTodosCount)
 
         {/* onChange - фиксирует в input действия, value - значения nput */}
      {/* инпут одиночный образец */}
-        <input type="text" value={this.state.inputValue} onChange={this.handleInputChange}/>
-<form>
-  <label htmlFor=""> Имя <input type="text" name="name" value={this.state.name} onChange={this.handleChange}/></label>
-  <label>Прозвище
-  <input type="text" value={this.state.tag} name="tag" onChange={this.handleChange}/>
+      
 
+{/* formSubmitHandler - prop, который идёт на моёй submit */}
+        <Form  onFormSubmit ={this.formSubmitHandler}/>
 
-  </label>
-  </form>
-
-     
+        <input type="text"  value={this.state.inputValue} onChange={this.handleInputChange}/>
       </div>
 
       </div>
+      
     );
   }
 }
