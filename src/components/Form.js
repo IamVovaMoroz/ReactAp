@@ -5,6 +5,8 @@ class Form extends React.Component  {
 state = {
     name: "",
     tag:"",
+    // для радио кнопок
+    experience: "junior"
 
 };
 
@@ -40,12 +42,32 @@ render(){
   return (
     
     <form onSubmit={this.handleSubmit}> 
+
+
+
     <label > Имя <input type="text" name="name" value={this.state.name} onChange={this.handleChange}/></label>
     <label>Прозвище
     <input type="text" value={this.state.tag} name="tag" onChange={this.handleChange}/>
-  
-  
+   
     </label>
+
+{/* радио кнопки */}
+<br/>
+<p>Your level</p>
+
+<label>
+<input type="radio" name="experience" value="junior" onChange={this.handleChange} checked={this.state.experience === "junior"}/> Junior
+</label>
+
+<label>
+<input type="radio" name="experience" value="middle" onChange={this.handleChange} checked={this.state.experience === "middle"}/> Middle
+</label>
+<label>
+<input type="radio" name="experience" value="senior" onChange={this.handleChange} checked={this.state.experience === "senior"}/> Senior
+</label>
+
+<br/>
+
     <button type="submit">Отправить</button>
     </form>
 
