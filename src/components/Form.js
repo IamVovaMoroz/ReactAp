@@ -6,7 +6,9 @@ state = {
     name: "",
     tag:"",
     // для радио кнопок
-    experience: "junior"
+    experience: "junior",
+    // checkbox
+    licence: false
 
 };
 
@@ -36,6 +38,15 @@ this.reset()
 
 reset = () => {
     this.setState({name: "", tag:""})
+  }
+
+
+//   для чекбокса метод
+handleLicenceChange = (event) => {
+    console.log(event.currentTarget.checked)
+// Для того чтобы ставилась галочка чекбокса
+    this.setState({licence: event.currentTarget.checked})
+ 
   }
 
 render(){
@@ -68,7 +79,12 @@ render(){
 
 <br/>
 
-    <button type="submit">Отправить</button>
+<label>
+<input type="checkbox" name="licence" onChange={this.handleLicenceChange} checked={this.state.licence} /> Согласен c условиями
+</label>
+
+
+    <button type="submit" disabled={!this.state.licence}>Отправить</button>
     </form>
 
 
