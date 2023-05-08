@@ -1,35 +1,50 @@
 .todoList {
     list-style: none;
-    margin: 100px;
-    padding: 50px;
-    border: 1px solid  #f44336;
-   
+  margin: 100px;
+  padding: 50px;
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: inherit;
+ 
+  align-items: center;
   }
   
   .todoItem {
     display: flex;
     align-items: center;
     margin: 8px 0;
-   
+  }
+  
+  .TodoList__item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .TodoList__checkbox {
+    margin-right: 16px;
   }
   
   .todoText {
     margin: 0;
-    flex: 1;
     /* border: 1px solid #f44336 ; */
-    text-decoration: underline;
-    text-decoration-color: #f44336;
+    /* text-decoration: underline;
+    text-decoration-color: #f44336; */
+    flex: 1;
   }
   
   .todoButton {
     margin-left: 16px;
     padding: 18px 32px;
     border: none;
-    background-color: #f44336;
+    background-color: blue;
     color: #fff;
     cursor: pointer;
   }
   
   .todoButton:hover {
     background-color: #d32f2f;
+  }
+  
+  .TodoList__checkbox:checked + .todoText {
+    text-decoration: line-through;
   }

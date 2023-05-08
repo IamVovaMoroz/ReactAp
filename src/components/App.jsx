@@ -3,16 +3,46 @@ import TodoList from "./TodoList/TodoList";
 import initialTodos from "./TodoList/todos";
 import "./App.css"; 
 import Form from "./Form";
+import TodoEditor from "./TodoEditor/TodoEditor"
+import shortid from "shortid";
+import Filter from "./Filter/Filter"
+
+
+
 
 class App extends React.Component {
   state = {
     todos: initialTodos,
     // Добавляем для инпута
     inputValue: "",
+    filter: ""
     
   };
 
 // Пишем метод, который будет определять состояние input
+
+// Получаем данные во время submit формы TodoEditor
+addTodo = text => {
+  console.log(text)
+// получили tex из текстериа, создаём тодо экземпляр
+
+const todo = {
+  id: shortid.generate(),
+  text: text,
+  completed : false,
+  }
+
+// this.setState(prevState =>({
+//   todos: [todo, ...prevState.todos],
+
+// Деструктуризация 
+this.setState(({todos}) =>({
+  todos: [todo, ...todos],
+
+}))
+ 
+}
+
 
 
   // Пишем метод для удаления state по id
@@ -30,6 +60,24 @@ handleInputChange = event =>{
 
   this.setState({inputValue: event.currentTarget.value})
 }
+
+toggleCompleted = (todoId) => {
+  console.log(todoId);
+
+  this.setState((prevState) => ({
+    todos: prevState.todos.map((todo) =>
+      todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
+    ),
+  }));
+};
+
+// Для фильтра
+
+changeFilter = event => {
+this.setState({filter: event.currentTarget.value})
+
+}
+
 
 // При отправке submit 
 
@@ -63,7 +111,7 @@ formSubmitHandler = data =>{
 
 
     // Деструктуризация в TodoList todos={this.state.todos} =>  <TodoList todos={todos}/>
-    const { todos } = this.state;
+    const { todos, filter } = this.state;
 
 //     // 1 вариант через фильтр
 // // записали в переменную отфильтрованный массив todos, сколько есть todo.completed. Пришёл этот элемент
@@ -76,11 +124,22 @@ formSubmitHandler = data =>{
 const totalTodoCount = todos.length
 
 const completedTodosCount = todos.reduce((total, todo) => todo.completed ? total + 1 : total, 0)
-console.log(completedTodosCount)
+
+
+
+// сокращаем и вписываем переменную для фильтра
+// const normalizedFiltered = this.state.filter.toLowerCase()
+
+// // Возвращаем только те тодо, свойство text которых, включает в себя текущее значение фильтра
+const visibleTodos = this.state.todos.filter(todo => todo.text.toLowerCase().includes(this.state.filter.toLowerCase()),) 
+
+
+
+
     return (
       <div
         style={{
-          height: "100vh",
+       
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -90,24 +149,37 @@ console.log(completedTodosCount)
       >
 
 <div>
+<TodoEditor onSubmit={this.addTodo} onChange={this.changeFilter}/>
   {/* Общее количество это длина массива todos */}
-  
+
+{/* фильтр рендерим , value={filter} значение из state, onChange={this.changeFilter}  - вызвывает на пропе */}
+<Filter value={filter} onChange={this.changeFilter}/>
+
 <p className="totalTodoCount">Количество ToDo общее: {totalTodoCount} </p>
   <p className="completedTodosCount"> Количество ToDo выполненных: {completedTodosCount} </p>
   
-  
+
+
+
 
         {/* ondDeleteTodo={this.deleteTodo} записали в переменную ссылку на этот метод */}
-        <TodoList todos={todos} onDeleteTodo={this.deleteTodo} />
+       
+        {/* после создания фильтра меняем TodoList todos={todos} => visibleTodos */}
 
+        <TodoList todos={visibleTodos} onDeleteTodo={this.deleteTodo} onToggleCompleted={this.toggleCompleted}/>
         {/* onChange - фиксирует в input действия, value - значения nput */}
      {/* инпут одиночный образец */}
       
 
 {/* formSubmitHandler - prop, который идёт на моёй submit */}
-        <Form  onFormSubmit ={this.formSubmitHandler}/>
 
+        <Form  onFormSubmit ={this.formSubmitHandler}/>
+       
         <input type="text"  value={this.state.inputValue} onChange={this.handleInputChange}/>
+
+       
+
+
       </div>
 
       </div>
