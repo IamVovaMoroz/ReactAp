@@ -79,6 +79,23 @@ this.setState({filter: event.currentTarget.value})
 }
 
 
+getVisibleTodos = () =>{
+
+const { todos, filter }  = this.state;
+
+// сокращаем и вписываем переменную для фильтра
+const normalizedFiltered = filter.toLowerCase();
+
+// // Возвращаем только те тодо, свойство text которых, включает в себя текущее значение фильтра
+return todos.filter(todo => todo.text.toLowerCase().includes(normalizedFiltered),) 
+
+
+
+}
+
+
+
+
 // При отправке submit 
 
 formSubmitHandler = data =>{
@@ -126,15 +143,15 @@ const totalTodoCount = todos.length
 const completedTodosCount = todos.reduce((total, todo) => todo.completed ? total + 1 : total, 0)
 
 
-
-// сокращаем и вписываем переменную для фильтра
+// FILTER
+// // сокращаем и вписываем переменную для фильтра
 // const normalizedFiltered = this.state.filter.toLowerCase()
 
-// // Возвращаем только те тодо, свойство text которых, включает в себя текущее значение фильтра
-const visibleTodos = this.state.todos.filter(todo => todo.text.toLowerCase().includes(this.state.filter.toLowerCase()),) 
+// // // Возвращаем только те тодо, свойство text которых, включает в себя текущее значение фильтра
+// const visibleTodos = this.state.todos.filter(todo => todo.text.toLowerCase().includes(normalizedFiltered),) 
 
-
-
+// Записываем значение с метода 
+const visibleTodos = this.getVisibleTodos()
 
     return (
       <div
