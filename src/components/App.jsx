@@ -6,6 +6,7 @@ import Form from "./Form";
 import TodoEditor from "./TodoEditor/TodoEditor"
 import shortid from "shortid";
 import Filter from "./Filter/Filter"
+import Modal from "./Modal/Modal"
 
 
 
@@ -15,9 +16,24 @@ class App extends React.Component {
     todos: initialTodos,
     // Добавляем для инпута
     inputValue: "",
-    filter: ""
-    
+    filter: "",
+    showModal: false,
   };
+
+
+// Метод для открытия и закрытия модалки . От обратного состояния
+toggleModal = () => {
+  this.setState((state) => ({
+    showModal: !state.showModal
+  }));
+};
+
+// toggleModal = () => {
+//   this.setState(state => ({
+//     showModal: !state.showModal,
+//   }));
+// };
+
 
 // Пишем метод, который будет определять состояние input
 
@@ -106,6 +122,40 @@ formSubmitHandler = data =>{
 
 
 
+// монтирование, создание 1 раз
+componentDidMount(){
+console.log("App componentDidMount")
+const todos = localStorage.getItem("todos")
+const parsedTodos = JSON.parse(todos)
+console.log(parsedTodos)
+// Добавляем их в локал сторадже
+if(parsedTodos){this.setState({todos: parsedTodos})}
+
+
+
+
+}
+
+
+// Состояние предыдущее prevState, componentDidUpdate - обновление
+componentDidUpdate(prevProps, prevState ){
+console.log("App componentDidUpdate")
+
+console.log(" prevState", prevState)
+
+if (this.state.todos !== prevState.todos){
+  
+  console.log("обновилось todos")
+  // Запись в локал сторедж по условию
+  localStorage.setItem("todos", JSON.stringify(this.state.todos))
+}
+
+
+
+}
+
+
+
 // handleNameChange = event =>{
 //    this.setState({name: event.currentTarget.value})
 // }
@@ -128,7 +178,7 @@ formSubmitHandler = data =>{
 
 
     // Деструктуризация в TodoList todos={this.state.todos} =>  <TodoList todos={todos}/>
-    const { todos, filter } = this.state;
+    const { todos, filter} = this.state;
 
 //     // 1 вариант через фильтр
 // // записали в переменную отфильтрованный массив todos, сколько есть todo.completed. Пришёл этот элемент
@@ -166,6 +216,27 @@ const visibleTodos = this.getVisibleTodos()
       >
 
 <div>
+  {/* Если showModal - true - рендер модалки, false - ничего */}
+   <button type="button" onClick={this.toggleModal}>открыть модалку</button>
+
+   {this.state.showModal && (
+  <Modal onClose={this.toggleModal}>
+    <button type="button" onClick={this.toggleModal}>
+      Закрыть модалку
+    </button>
+  </Modal>
+)}
+
+
+
+  {/* {this.state.showModal && (
+  <Modal onClose={this.toggleModal}>
+    
+  <button type="button" onClick={this.toggleModal}>Закрыть модалку</button>
+   </Modal>) }
+  */}
+
+
 <TodoEditor onSubmit={this.addTodo} onChange={this.changeFilter}/>
   {/* Общее количество это длина массива todos */}
 
