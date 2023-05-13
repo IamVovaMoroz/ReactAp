@@ -7,8 +7,11 @@ import TodoEditor from "./TodoEditor/TodoEditor"
 import shortid from "shortid";
 import Filter from "./Filter/Filter"
 import Modal from "./Modal/Modal"
-
-
+// для запросов
+import PokemonForm from "./PokemonFetch/PokemonForm";
+import { ToastContainer  } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PokemonInfo from "./PokemonFetch/PokemonInfo"
 
 
 class App extends React.Component {
@@ -18,6 +21,7 @@ class App extends React.Component {
     inputValue: "",
     filter: "",
     showModal: false,
+    pokemonName: '',
   };
 
 
@@ -152,8 +156,16 @@ if (this.state.todos !== prevState.todos){
 
 
 
+
+
+
+
+
 }
 
+handleFormSubmit = pokemonName => {
+  this.setState({ pokemonName });
+};
 
 
 // handleNameChange = event =>{
@@ -266,7 +278,10 @@ const visibleTodos = this.getVisibleTodos()
         <input type="text"  value={this.state.inputValue} onChange={this.handleInputChange}/>
 
        
+    <PokemonForm onSubmitApp={this.handleFormSubmit}/>
 
+    <ToastContainer autoClose={3000}/>
+    <PokemonInfo pokemonName={this.state.pokemonName}/>
 
       </div>
 
