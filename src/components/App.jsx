@@ -12,6 +12,7 @@ import PokemonForm from "./PokemonFetch/PokemonForm";
 import { ToastContainer  } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PokemonInfo from "./PokemonFetch/PokemonInfo"
+import SignupForm from './SignupForm/SignupForm';
 
 
 class App extends React.Component {
@@ -283,6 +284,12 @@ const visibleTodos = this.getVisibleTodos()
     <ToastContainer autoClose={3000}/>
     <PokemonInfo pokemonName={this.state.pokemonName}/>
 
+
+
+ 
+       
+          <SignupForm />
+ 
       </div>
 
       </div>
