@@ -48,6 +48,7 @@
 //   );
 // }
 import styles from './SignupForm.module.css';
+import useLocalStorage from "../hooks/useLocalStorage"
 //1) для работы с хуками импортируем их из реакта: import {useState} from "react"
 import {useEffect, useState} from "react"
 export default function SignupForm() {
@@ -68,23 +69,23 @@ export default function SignupForm() {
 // передаём дефолтное значение ключ (email, password)
 
 // принимает useLocalStorage key(email, password) и value - значение которое будем получать из инпут и записывать в инпут с локал сторедж
-const useLocalStorage = (key, defaultValue) => {
-    const [state, setState] = useState(() => {
-      // Передаем ленивую загрузку записи из локального хранилища в состояние.
-      // Используем оператор nullish coalescing (??) для проверки наличия записи в хранилище.
-      // Если запись отсутствует, возвращаем defaultValue.
-      return JSON.parse(window.localStorage.getItem(key)) ?? defaultValue;
-    });
+// const useLocalStorage = (key, defaultValue) => {
+//     const [state, setState] = useState(() => {
+//       // Передаем ленивую загрузку записи из локального хранилища в состояние.
+//       // Используем оператор nullish coalescing (??) для проверки наличия записи в хранилище.
+//       // Если запись отсутствует, возвращаем defaultValue.
+//       return JSON.parse(window.localStorage.getItem(key)) ?? defaultValue;
+//     });
   
-    // Функция будет использовать useEffect для записи состояния в локальное хранилище
-    useEffect(() => {
-      window.localStorage.setItem(key, JSON.stringify(state));
-      // Зависимостью для useEffect является состояние state, чтобы реагировать на его изменения.
-    }, [key, state]);
+//     // Функция будет использовать useEffect для записи состояния в локальное хранилище
+//     useEffect(() => {
+//       window.localStorage.setItem(key, JSON.stringify(state));
+//       // Зависимостью для useEffect является состояние state, чтобы реагировать на его изменения.
+//     }, [key, state]);
   
-    // Возвращаем состояние и функцию для его обновления
-    return [state, setState];
-  };
+//     // Возвращаем состояние и функцию для его обновления
+//     return [state, setState];
+//   };
 
 
 // const [email, setEmail] = useState(()=>  JSON.parse(window.localStorage.getItem('email')) ?? "")

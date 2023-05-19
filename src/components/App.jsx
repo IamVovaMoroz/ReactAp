@@ -15,6 +15,12 @@ import PokemonInfo from "./PokemonFetch/PokemonInfo"
 import SignupForm from './SignupForm/SignupForm';
 
 
+
+// для hook переводим import React from "react";  = import { useState } from "react";
+
+
+
+
 class App extends React.Component {
   state = {
     todos: initialTodos,
@@ -22,8 +28,11 @@ class App extends React.Component {
     inputValue: "",
     filter: "",
     showModal: false,
-    pokemonName: '',
+    // pokemonName: '',
   };
+
+
+  
 
 
 // Метод для открытия и закрытия модалки . От обратного состояния
@@ -279,10 +288,10 @@ const visibleTodos = this.getVisibleTodos()
         <input type="text"  value={this.state.inputValue} onChange={this.handleInputChange}/>
 
        
-    <PokemonForm onSubmitApp={this.handleFormSubmit}/>
+    {/* <PokemonForm onSubmitApp={this.handleFormSubmit}/>
 
     <ToastContainer autoClose={3000}/>
-    <PokemonInfo pokemonName={this.state.pokemonName}/>
+    <PokemonInfo pokemonName={this.state.pokemonName}/> */}
 
 
 
