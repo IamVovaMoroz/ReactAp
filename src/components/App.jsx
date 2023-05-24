@@ -237,6 +237,8 @@ const visibleTodos = this.getVisibleTodos()
         }}
       >
 
+<PokemonForm onSubmitApp={this.handleFormSubmit}/>
+<PokemonInfo pokemonName={this.state.pokemonName}/> 
 <div>
   {/* Если showModal - true - рендер модалки, false - ничего */}
    <button type="button" onClick={this.toggleModal}>открыть модалку</button>
@@ -288,10 +290,10 @@ const visibleTodos = this.getVisibleTodos()
         <input type="text"  value={this.state.inputValue} onChange={this.handleInputChange}/>
 
        
-    {/* <PokemonForm onSubmitApp={this.handleFormSubmit}/>
+
 
     <ToastContainer autoClose={3000}/>
-    <PokemonInfo pokemonName={this.state.pokemonName}/> */}
+ 
 
 
 
